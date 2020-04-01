@@ -52,8 +52,8 @@ void Engine::RenderTexture(const unsigned int ID, int x, int y, float scale)
 	//Query the texture to get its width and height to use
 	SDL_Texture* tex = textures.GetTexture(ID);
 	SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);
-	dst.w *= scale;
-	dst.h *= scale;
+	dst.w = (int)(dst.w * scale);
+	dst.h = (int)(dst.h * scale);
 	SDL_RenderCopy(renderer, tex, NULL, &dst);
 }
 
@@ -98,6 +98,6 @@ void Engine::Display()
 	SDL_RenderPresent(renderer);
 
 	// Take a quick break after all that hard work
-	SDL_Delay(1000);
+	// SDL_Delay(1000);
 
 }

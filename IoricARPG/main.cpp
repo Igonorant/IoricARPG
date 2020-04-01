@@ -6,21 +6,55 @@ int main(int argc, char *argv[])
 
 	if (!engine.Init())
 	{
-		int count = 0;
-		while (count < 10) {
-			unsigned int foreID = engine.LoadTexture("assets/IoricToken.png");
-			unsigned int backID = engine.LoadTexture("assets/Beltir Token.png");
+		// Texture loading
+		unsigned int foreID = engine.LoadTexture("assets/IoricToken.png");
+
+		int x = 0;
+		int y = 0;
+		float speed = 10.5f;
+
+		SDL_Event e;
+		bool quit = false;
+		while (!quit) {
+			// Event pooling
+			while (SDL_PollEvent(&e))
+			{
+				switch (e.type)
+				{
+				case SDL_QUIT:
+					quit = true;
+					break;
+				case SDL_KEYDOWN:
+					switch (e.key.keysym.sym)
+					{
+					case SDLK_RIGHT:
+						x = (int)(x + speed);
+						break;
+					case SDLK_LEFT:
+						x = (int)(x - speed);
+						break;
+					case SDLK_UP:
+						y = (int)(y - speed);
+						break;
+					case SDLK_DOWN:
+						y = (int)(y + speed);
+						break;
+					}
+					break;
+
+				}
+
+			}
+
+
+			// Rendering
+			engine.PushForegroundQueue(foreID, x, y, 1.0f);
+
+			engine.Display();
 
 			engine.ClearBackgroundQueue();
 			engine.ClearForegroundQueue();
 
-			engine.PushBackgroundQueue(backID, count*2, count * 2, 1.0f);
-			engine.PushForegroundQueue(foreID, count * 1, count * 1, 1.0f);
-			engine.PushForegroundQueue(foreID, count * 3, count * 3, 0.5f);
-			engine.PushForegroundQueue(foreID, count * 30, count * 10, 2.0f);
-
-			engine.Display();
-			count++;
 		}
 	}
 

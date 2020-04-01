@@ -17,6 +17,8 @@ TextureCodex::~TextureCodex()
 	{
 		SDL_DestroyTexture((*it).texture);
 	}
+
+	IMG_Quit();
 }
 
 unsigned int TextureCodex::LoadTexture(const char* path)
