@@ -31,10 +31,10 @@ unsigned int TextureCodex::LoadTexture(const char* path)
 	else
 	{
 		tmpSurface = IMG_Load(path);
-		if (!tmpSurface == NULL)
+		if (tmpSurface != NULL)
 		{
 			tmpTexture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-			if (!tmpTexture == NULL)
+			if (tmpTexture != NULL)
 			{
 				lastID++;
 				textures.emplace_back(lastID, path, tmpTexture);
