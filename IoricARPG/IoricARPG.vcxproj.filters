@@ -24,12 +24,18 @@
     <ClCompile Include="engine\texture_codex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="game\game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="engine\texture_codex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

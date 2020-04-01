@@ -1,63 +1,15 @@
-#include "engine\engine.h"
+#include "game\game.h"
 
 int main(int argc, char *argv[])
 {
-	Engine engine;
+	Game game;
 
-	if (!engine.Init())
+	while (game.GetState() != Game::State::Quiting)
 	{
-		// Texture loading
-		unsigned int foreID = engine.LoadTexture("assets/IoricToken.png");
-
-		int x = 0;
-		int y = 0;
-		float speed = 10.5f;
-
-		SDL_Event e;
-		bool quit = false;
-		while (!quit) {
-			// Event pooling
-			while (SDL_PollEvent(&e))
-			{
-				switch (e.type)
-				{
-				case SDL_QUIT:
-					quit = true;
-					break;
-				case SDL_KEYDOWN:
-					switch (e.key.keysym.sym)
-					{
-					case SDLK_RIGHT:
-						x = (int)(x + speed);
-						break;
-					case SDLK_LEFT:
-						x = (int)(x - speed);
-						break;
-					case SDLK_UP:
-						y = (int)(y - speed);
-						break;
-					case SDLK_DOWN:
-						y = (int)(y + speed);
-						break;
-					}
-					break;
-
-				}
-
-			}
-
-
-			// Rendering
-			engine.PushForegroundQueue(foreID, x, y, 1.0f);
-
-			engine.Display();
-
-			engine.ClearBackgroundQueue();
-			engine.ClearForegroundQueue();
-
-		}
+		game.HandleEvents();
+		game.Update();
+		game.Render();
 	}
 
-	engine.Quit();
 	return EXIT_SUCCESS;
 }
