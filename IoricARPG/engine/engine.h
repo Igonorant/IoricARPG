@@ -6,6 +6,7 @@
 #include <SDL.h>
 
 #include "texture_codex.h"
+#include "../game/object.h"
 
 
 class Engine
@@ -32,32 +33,17 @@ public:
 	// rendering managing
 	void ClearBackgroundQueue();
 	void ClearForegroundQueue();
-	void PushBackgroundQueue(unsigned int ID, unsigned int xpos, unsigned int ypos, float scale);
-	void PushForegroundQueue(unsigned int ID, unsigned int xpos, unsigned int ypos, float scale);
+
+	void PushForegroundQueue(Object& obj);
+	void PushBackgroundQueue(Object& obj);
 
 	// test functions
 	void Display();
 
 private:
-	struct RenderQueueObject
-	{
-		unsigned int textureID;
-		unsigned int xpos;
-		unsigned int ypos;
-		float scale;
-
-		RenderQueueObject(unsigned int ID, unsigned int x, unsigned int y, float scale)
-			:textureID(ID),
-			 xpos(x),
-			 ypos(y),
-			 scale(scale)
-		{}
-	};
-
-private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	TextureCodex textures;
-	std::vector<RenderQueueObject> background_queue;
-	std::vector<RenderQueueObject> foreground_queue;
+	std::vector<Object*> background_queue;
+	std::vector<Object*> foreground_queue;
 };

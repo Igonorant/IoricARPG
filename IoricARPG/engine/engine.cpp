@@ -67,14 +67,15 @@ void Engine::ClearForegroundQueue()
 	foreground_queue.clear();
 }
 
-void Engine::PushBackgroundQueue(unsigned int ID, unsigned int xpos, unsigned int ypos, float scale)
+
+void Engine::PushForegroundQueue(Object& obj)
 {
-	background_queue.emplace_back(ID, xpos, ypos, scale);
+	foreground_queue.push_back(&obj);
 }
 
-void Engine::PushForegroundQueue(unsigned int ID, unsigned int xpos, unsigned int ypos, float scale)
+void Engine::PushBackgroundQueue(Object& obj)
 {
-	foreground_queue.emplace_back(ID, xpos, ypos, scale);
+	background_queue.push_back(&obj);
 }
 
 void Engine::Display()
@@ -85,13 +86,13 @@ void Engine::Display()
 	// Draw background
 	for (auto obj : background_queue)
 	{
-		RenderTexture(obj.textureID, obj.xpos, obj.ypos, obj.scale);
+		RenderTexture(obj->texID, (int)obj->pos.x, (int)obj->pos.y, obj->scale);
 	}
 
 	// Draw foreground
 	for (auto obj : foreground_queue)
 	{
-		RenderTexture(obj.textureID, obj.xpos, obj.ypos, obj.scale);
+		RenderTexture(obj->texID, (int)obj->pos.x, (int)obj->pos.y, obj->scale);
 	}
 
 	// Update the screen
