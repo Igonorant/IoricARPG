@@ -147,12 +147,16 @@
     <ClCompile Include="engine\engine.cpp" />
     <ClCompile Include="engine\texture_codex.cpp" />
     <ClCompile Include="game\game.cpp" />
+    <ClCompile Include="game\player.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\engine.h" />
     <ClInclude Include="engine\texture_codex.h" />
     <ClInclude Include="game\game.h" />
+    <ClInclude Include="game\object.h" />
+    <ClInclude Include="game\player.h" />
+    <ClInclude Include="math\vec2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

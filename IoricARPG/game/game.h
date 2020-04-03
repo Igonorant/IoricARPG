@@ -1,6 +1,7 @@
 #pragma once
 
 #include "..\engine\engine.h"
+#include "object.h"
 
 #include <SDL.h>
 
