@@ -2,6 +2,7 @@
 
 #include "..\engine\engine.h"
 #include "object.h"
+#include "player.h"
 
 #include <SDL.h>
 
@@ -36,4 +37,8 @@ private:
 	State state = State::NotInitialized;
 	Engine engine;
 	SDL_Event events;
+
+	Player player;
+	float dt;
+	Uint32 lastTick;
 };
