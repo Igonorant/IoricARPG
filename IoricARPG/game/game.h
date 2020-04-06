@@ -1,8 +1,9 @@
 #pragma once
 
-#include "..\engine\engine.h"
+#include "../engine/engine.h"
 #include "object.h"
 #include "player.h"
+#include "../engine/animation.h"
 
 #include <SDL.h>
 
@@ -41,4 +42,9 @@ private:
 	Player player;
 	float dt;
 	Uint32 lastTick;
+
+
+public:
+	Animation testAnimation;
+	Player AnimationTester;
 };

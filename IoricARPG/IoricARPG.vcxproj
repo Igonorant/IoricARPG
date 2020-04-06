@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\animation.cpp" />
     <ClCompile Include="engine\engine.cpp" />
     <ClCompile Include="engine\texture_codex.cpp" />
     <ClCompile Include="game\game.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\animation.h" />
     <ClInclude Include="engine\engine.h" />
     <ClInclude Include="engine\texture_codex.h" />
     <ClInclude Include="game\game.h" />

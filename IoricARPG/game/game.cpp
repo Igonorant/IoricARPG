@@ -2,6 +2,9 @@
 
 Game::Game()
 {
+	dt = 0.001f;
+	lastTick = 0;
+
 	if (!engine.Init())
 	{
 		state = State::Initialized;
@@ -13,6 +16,16 @@ Game::Game()
 		player.scale = 1.0f;
 		player.vel.x = 0.0f;
 		player.vel.y = 0.0f;
+
+		// Load fire spell textures and add to animation
+		testAnimation.AddFrame(engine.LoadTexture("assets/ground_fire_frame1.png"), 0.1f);
+		testAnimation.AddFrame(engine.LoadTexture("assets/ground_fire_frame2.png"), 0.2f);
+		testAnimation.AddFrame(engine.LoadTexture("assets/ground_fire_frame3.png"), 0.1f);
+
+		AnimationTester.pos.x = 300.0f;
+		AnimationTester.pos.y = 300.0f;
+		AnimationTester.scale = 1.0f;
+
 	}
 }
 
@@ -61,6 +74,8 @@ void Game::Update()
 	dt = (float)(SDL_GetTicks() - lastTick)/1000;
 
 	player.Update(dt);
+	testAnimation.Update(dt);
+	AnimationTester.texID = testAnimation.GetFrame();
 
 	lastTick = SDL_GetTicks();
 }
@@ -68,6 +83,8 @@ void Game::Update()
 void Game::Render()
 {
 	engine.PushForegroundQueue(player);
+
+	engine.PushForegroundQueue(AnimationTester);
 
 	engine.Display();
 
