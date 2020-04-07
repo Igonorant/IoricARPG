@@ -47,4 +47,8 @@ unsigned int Animation::GetFrame()
 	{
 		return frames[currentFrame].texID;
 	}
+	else
+	{
+		return 0;
+	}
 }
