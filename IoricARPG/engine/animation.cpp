@@ -10,8 +10,8 @@ Animation::~Animation()
 
 void Animation::AddFrame(unsigned int texID, float duration)
 {
-	frames.emplace_back(texID, duration);
 	totalDuration += duration;
+	frames.emplace_back(texID, totalDuration);
 }
 
 
@@ -20,17 +20,24 @@ void Animation::Update(float dt)
 	if (!frames.empty())
 	{
 		timeCounter += dt;
-		if (timeCounter / totalDuration > 1.0f)
+		if (timeCounter >= totalDuration)
 		{
+			timeCounter = (float)std::fmod(timeCounter, totalDuration);
 			currentFrame = 0;
 		}
 
-		float counter = (float)std::fmod(timeCounter, totalDuration);
-		while ((counter - frames[currentFrame].duration) > 0)
+		while (currentFrame < frames.size())
 		{
-			counter -= frames[currentFrame].duration;
-			currentFrame++;
+			if (timeCounter > frames[currentFrame].durationFromBegin)
+			{
+				currentFrame++;
+			}
+			else
+			{
+				break;
+			}
 		}
+
 	}
 }
 

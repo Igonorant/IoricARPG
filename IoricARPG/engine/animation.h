@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <cmath>
+#include <algorithm>
 
 #include <SDL.h>
 
@@ -20,13 +21,13 @@ public:
 private:
 	struct Frame
 	{
-		Frame(unsigned int texID, float duration)
-			:texID(texID), duration(duration)
+		Frame(unsigned int texID, float durationFromBegin)
+			:texID(texID), durationFromBegin(durationFromBegin)
 		{
 
 		}
 		unsigned int texID;
-		float duration;
+		float durationFromBegin;
 	};
 
 private:

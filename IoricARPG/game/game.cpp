@@ -19,7 +19,7 @@ Game::Game()
 
 		// Load fire spell textures and add to animation
 		testAnimation.AddFrame(engine.LoadTexture("assets/ground_fire_frame1.png"), 0.1f);
-		testAnimation.AddFrame(engine.LoadTexture("assets/ground_fire_frame2.png"), 0.2f);
+		testAnimation.AddFrame(engine.LoadTexture("assets/ground_fire_frame2.png"), 0.1f);
 		testAnimation.AddFrame(engine.LoadTexture("assets/ground_fire_frame3.png"), 0.1f);
 
 		AnimationTester.pos.x = 300.0f;
