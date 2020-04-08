@@ -38,6 +38,10 @@ Game::Game()
 		player.AddAnimationFrame(Object::State::MovingDown, engine.LoadTexture("assets/main_character/moving_down_02.png"), 0.3f);
 		player.AddAnimationFrame(Object::State::MovingDown, engine.LoadTexture("assets/main_character/moving_down_03.png"), 0.3f);
 
+		fireballTexID[0] = engine.LoadTexture("assets/ground_fire_frame1.png");
+		fireballTexID[1] = engine.LoadTexture("assets/ground_fire_frame2.png");
+		fireballTexID[2] = engine.LoadTexture("assets/ground_fire_frame3.png");
+
 	}
 }
 
@@ -83,6 +87,26 @@ void Game::HandleEvents()
 				player.vel.y = 0.0f;
 				player.SetState(Object::State::Idle);
 				break;
+			case SDLK_q:
+				objects.emplace_back(0, player.pos.x, player.pos.y, 1.0f);
+				objects.back().AddAnimationFrame(Object::State::Moving, fireballTexID[0], 0.1f);
+				objects.back().AddAnimationFrame(Object::State::Moving, fireballTexID[1], 0.1f);
+				objects.back().AddAnimationFrame(Object::State::Moving, fireballTexID[2], 0.1f);
+		
+				if (player.vel.x > 0.0f)
+				{
+					objects.back().vel.x = 90.0f;
+				}
+				else
+				{
+					objects.back().vel.x = -90.0f;
+				}
+				objects.back().vel.y = player.vel.y;
+
+				objects.back().SetState(Object::State::Moving);
+				objects.back().SetLifeSpan(2.0f);
+				
+				break;
 			}
 			break;
 
@@ -96,12 +120,33 @@ void Game::Update()
 
 	player.Update(dt);
 
+	for (unsigned int i = 0; i < objects.size(); i++)
+	{
+		objects[i].Update(dt);
+	}
+
+	//remove all objects marked for deletion
+	objects.erase(
+		std::remove_if(objects.begin(),
+			objects.end(),
+			[](Object& i) {return i.GetState() == Object::State::MarkedForDeletion; }
+		),	
+		objects.end());
+
+
 	lastTick = SDL_GetTicks();
 }
 
 void Game::Render()
 {
 	engine.PushForegroundQueue(player);
+	if (!objects.empty())
+	{
+		for (unsigned int i = 0; i<objects.size();i++ )
+		{
+			engine.PushForegroundQueue(objects[i]);
+		}
+	}
 
 	engine.Display();
 

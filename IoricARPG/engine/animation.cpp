@@ -14,6 +14,12 @@ void Animation::AddFrame(unsigned int texID, float duration)
 	frames.emplace_back(texID, totalDuration);
 }
 
+void Animation::AddFrame(unsigned int texID, float duration, float scale)
+{
+	totalDuration += duration;
+	frames.emplace_back(texID, totalDuration,scale);
+}
+
 
 void Animation::Update(float dt)
 {
@@ -51,4 +57,9 @@ unsigned int Animation::GetFrame()
 	{
 		return 0;
 	}
+}
+
+float Animation::GetScale()
+{
+	return frames[currentFrame].scale;
 }

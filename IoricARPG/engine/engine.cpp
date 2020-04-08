@@ -86,13 +86,13 @@ void Engine::Display()
 	// Draw background
 	for (auto obj : background_queue)
 	{
-		RenderTexture(obj->GetCurrentTexID(), (int)obj->pos.x, (int)obj->pos.y, obj->scale);
+		RenderTexture(obj->GetCurrentTexID(), (int)obj->pos.x, (int)obj->pos.y, obj->GetScale());
 	}
 
 	// Draw foreground
 	for (auto obj : foreground_queue)
 	{
-		RenderTexture(obj->GetCurrentTexID(), (int)obj->pos.x, (int)obj->pos.y, obj->scale);
+		RenderTexture(obj->GetCurrentTexID(), (int)obj->pos.x, (int)obj->pos.y, obj->GetScale());
 	}
 
 	// Update the screen

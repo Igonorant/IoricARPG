@@ -12,10 +12,12 @@ public:
 	{
 		NotInitialized = 0,
 		Idle,
+		Moving,
 		MovingLeft,
 		MovingRight,
 		MovingDown,
-		MovingUp
+		MovingUp,
+		MarkedForDeletion
 	};
 
 public:
@@ -29,17 +31,27 @@ public:
 		pos.y = y;
 	}
 
+
 	// virtual methods
 	virtual void Update(float dt);
 
 	// non-virtual methods
 	unsigned int GetCurrentTexID();
+	float GetScale();
 	inline void SetState(Object::State newState)
 	{
 		state = newState;
 	}
 	void AddAnimationFrame(Object::State animationState, unsigned int texID, float duration);
-
+	void AddAnimationFrame(Object::State animationState, unsigned int texID, float duration, float scale);
+	inline void SetLifeSpan(float newLifeSpan)
+	{
+		lifeSpan = newLifeSpan;
+	}
+	inline State GetState()
+	{
+		return state;
+	}
 
 public:
 	Vec2 pos;
@@ -48,6 +60,7 @@ public:
 
 protected:
 	std::map<Object::State, Animation> animations;
-	Object::State state;
+	Object::State state = Object::State::NotInitialized;
 	unsigned int texID;
+	float lifeSpan = 3.40282e+038f;
 };

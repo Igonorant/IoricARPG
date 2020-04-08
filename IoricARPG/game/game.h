@@ -6,7 +6,7 @@
 #include "../engine/animation.h"
 
 #include <algorithm>
-
+#include <vector>
 #include <SDL.h>
 
 class Game
@@ -48,4 +48,6 @@ private:
 
 public:
 	Animation testAnimation;
+	unsigned int fireballTexID[3];
+	std::vector<Object> objects;
 };
