@@ -148,6 +148,7 @@
     <ClCompile Include="engine\engine.cpp" />
     <ClCompile Include="engine\texture_codex.cpp" />
     <ClCompile Include="game\game.cpp" />
+    <ClCompile Include="game\object.cpp" />
     <ClCompile Include="game\player.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

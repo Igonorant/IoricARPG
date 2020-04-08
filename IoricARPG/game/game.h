@@ -5,6 +5,8 @@
 #include "player.h"
 #include "../engine/animation.h"
 
+#include <algorithm>
+
 #include <SDL.h>
 
 class Game
@@ -46,5 +48,4 @@ private:
 
 public:
 	Animation testAnimation;
-	Player AnimationTester;
 };

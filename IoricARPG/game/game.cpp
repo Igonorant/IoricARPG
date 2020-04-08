@@ -12,19 +12,31 @@ Game::Game()
 		// Load player assets and set position on screen
 		player.pos.x = 200.0f;
 		player.pos.y = 200.0f;
-		player.texID = engine.LoadTexture("assets/IoricToken.png");
+		player.AddAnimationFrame(Object::State::Idle, engine.LoadTexture("assets/main_character/moving_down_00.png"), 1.0f);
 		player.scale = 1.0f;
 		player.vel.x = 0.0f;
 		player.vel.y = 0.0f;
+		player.SetState(Object::State::Idle);
 
-		// Load fire spell textures and add to animation
-		testAnimation.AddFrame(engine.LoadTexture("assets/ground_fire_frame1.png"), 0.1f);
-		testAnimation.AddFrame(engine.LoadTexture("assets/ground_fire_frame2.png"), 0.1f);
-		testAnimation.AddFrame(engine.LoadTexture("assets/ground_fire_frame3.png"), 0.1f);
+		player.AddAnimationFrame(Object::State::MovingRight, engine.LoadTexture("assets/main_character/moving_right_00.png"), 0.3f);
+		player.AddAnimationFrame(Object::State::MovingRight, engine.LoadTexture("assets/main_character/moving_right_01.png"), 0.3f);
+		player.AddAnimationFrame(Object::State::MovingRight, engine.LoadTexture("assets/main_character/moving_right_02.png"), 0.3f);
+		player.AddAnimationFrame(Object::State::MovingRight, engine.LoadTexture("assets/main_character/moving_right_03.png"), 0.3f);
 
-		AnimationTester.pos.x = 300.0f;
-		AnimationTester.pos.y = 300.0f;
-		AnimationTester.scale = 1.0f;
+		player.AddAnimationFrame(Object::State::MovingLeft, engine.LoadTexture("assets/main_character/moving_left_01.png"), 0.3f);
+		player.AddAnimationFrame(Object::State::MovingLeft, engine.LoadTexture("assets/main_character/moving_left_02.png"), 0.3f);
+		player.AddAnimationFrame(Object::State::MovingLeft, engine.LoadTexture("assets/main_character/moving_left_00.png"), 0.3f);
+		player.AddAnimationFrame(Object::State::MovingLeft, engine.LoadTexture("assets/main_character/moving_left_03.png"), 0.3f);
+
+		player.AddAnimationFrame(Object::State::MovingUp, engine.LoadTexture("assets/main_character/moving_up_00.png"), 0.3f);
+		player.AddAnimationFrame(Object::State::MovingUp, engine.LoadTexture("assets/main_character/moving_up_01.png"), 0.3f);
+		player.AddAnimationFrame(Object::State::MovingUp, engine.LoadTexture("assets/main_character/moving_up_02.png"), 0.3f);
+		player.AddAnimationFrame(Object::State::MovingUp, engine.LoadTexture("assets/main_character/moving_up_03.png"), 0.3f);
+
+		player.AddAnimationFrame(Object::State::MovingDown, engine.LoadTexture("assets/main_character/moving_down_00.png"), 0.3f);
+		player.AddAnimationFrame(Object::State::MovingDown, engine.LoadTexture("assets/main_character/moving_down_01.png"), 0.3f);
+		player.AddAnimationFrame(Object::State::MovingDown, engine.LoadTexture("assets/main_character/moving_down_02.png"), 0.3f);
+		player.AddAnimationFrame(Object::State::MovingDown, engine.LoadTexture("assets/main_character/moving_down_03.png"), 0.3f);
 
 	}
 }
@@ -47,20 +59,29 @@ void Game::HandleEvents()
 			switch (events.key.keysym.sym)
 			{
 			case SDLK_RIGHT:
-				player.vel.x += 10.0f;
+				player.vel.x += 5.0f;
+				player.vel.x = std::max(player.vel.x, 15.0f);
+				player.SetState(Object::State::MovingRight);
 				break;
 			case SDLK_LEFT:
-				player.vel.x -= 10.0f;
+				player.vel.x -= 5.0f;
+				player.vel.x = std::min(player.vel.x, -15.0f);
+				player.SetState(Object::State::MovingLeft);
 				break;
 			case SDLK_UP:
-				player.vel.y -= 10.0f;
+				player.vel.y -= 5.0f;
+				player.vel.y = std::min(player.vel.y, -15.0f);
+				player.SetState(Object::State::MovingUp);
 				break;
 			case SDLK_DOWN:
-				player.vel.y += 10.0f;
+				player.vel.y += 5.0f;
+				player.vel.y = std::max(player.vel.y, 15.0f);
+				player.SetState(Object::State::MovingDown);
 				break;
 			case SDLK_SPACE:
 				player.vel.x = 0.0f;
 				player.vel.y = 0.0f;
+				player.SetState(Object::State::Idle);
 				break;
 			}
 			break;
@@ -74,8 +95,6 @@ void Game::Update()
 	dt = (float)(SDL_GetTicks() - lastTick)/1000;
 
 	player.Update(dt);
-	testAnimation.Update(dt);
-	AnimationTester.texID = testAnimation.GetFrame();
 
 	lastTick = SDL_GetTicks();
 }
@@ -83,8 +102,6 @@ void Game::Update()
 void Game::Render()
 {
 	engine.PushForegroundQueue(player);
-
-	engine.PushForegroundQueue(AnimationTester);
 
 	engine.Display();
 

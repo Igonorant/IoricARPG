@@ -10,7 +10,7 @@ int Engine::Init()
 	}
 
 	// Create window
-	window = SDL_CreateWindow("Hello World!", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Ioric ARPG", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
 	if (window == nullptr)
 	{
 		LogSDLError(std::cout, "SDL_CreateWindow");
@@ -86,13 +86,13 @@ void Engine::Display()
 	// Draw background
 	for (auto obj : background_queue)
 	{
-		RenderTexture(obj->texID, (int)obj->pos.x, (int)obj->pos.y, obj->scale);
+		RenderTexture(obj->GetCurrentTexID(), (int)obj->pos.x, (int)obj->pos.y, obj->scale);
 	}
 
 	// Draw foreground
 	for (auto obj : foreground_queue)
 	{
-		RenderTexture(obj->texID, (int)obj->pos.x, (int)obj->pos.y, obj->scale);
+		RenderTexture(obj->GetCurrentTexID(), (int)obj->pos.x, (int)obj->pos.y, obj->scale);
 	}
 
 	// Update the screen

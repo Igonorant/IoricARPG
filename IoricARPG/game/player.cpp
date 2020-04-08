@@ -2,5 +2,9 @@
 
 void Player::Update( float dt )
 {
-	pos += (vel * dt);
+	// Specific player update
+	
+
+	// Call base class for general object update
+	Object::Update(dt);
 }
